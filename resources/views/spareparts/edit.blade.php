@@ -25,8 +25,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Edit Sparepart</h3>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Perbarui data sparepart</p>
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Edit Data Sparepart</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ $sparepart->kode_part }} - {{ $sparepart->nama_barang }}</p>
                             </div>
                         </div>
                     </div>
@@ -47,17 +47,10 @@
                                            name="kode_part"
                                            id="kode_part"
                                            value="{{ old('kode_part', $sparepart->kode_part) }}"
-                                           placeholder="SP-001"
-                                           autofocus
                                            required
-                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-200 @error('kode_part') border-red-500 ring-2 ring-red-500/20 @enderror">
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 @error('kode_part') border-red-500 ring-2 ring-red-500/20 @enderror">
                                     @error('kode_part')
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
-                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            {{ $message }}
-                                        </p>
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                     @enderror
                                 </div>
 
@@ -70,16 +63,10 @@
                                            name="merk"
                                            id="merk"
                                            value="{{ old('merk', $sparepart->merk) }}"
-                                           placeholder="Brembo, TDR, Aspira..."
                                            required
-                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-200 @error('merk') border-red-500 ring-2 ring-red-500/20 @enderror">
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 @error('merk') border-red-500 ring-2 ring-red-500/20 @enderror">
                                     @error('merk')
-                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
-                                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            {{ $message }}
-                                        </p>
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -93,21 +80,48 @@
                                        name="nama_barang"
                                        id="nama_barang"
                                        value="{{ old('nama_barang', $sparepart->nama_barang) }}"
-                                       placeholder="Kampas Rem Depan Honda Beat"
                                        required
-                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-200 @error('nama_barang') border-red-500 ring-2 ring-red-500/20 @enderror">
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 @error('nama_barang') border-red-500 ring-2 ring-red-500/20 @enderror">
                                 @error('nama_barang')
-                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
-                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                        </svg>
-                                        {{ $message }}
-                                    </p>
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            {{-- Stok & Harga Row --}}
+                            {{-- Kategori & Lokasi Rak Row --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {{-- Kategori --}}
+                                <div>
+                                    <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Kategori
+                                    </label>
+                                    <select name="category_id"
+                                            id="category_id"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200">
+                                        <option value="">-- Pilih Kategori --</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ old('category_id', $sparepart->category_id) == $category->id ? 'selected' : '' }}>
+                                                {{ $category->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                {{-- Lokasi Rak --}}
+                                <div>
+                                    <label for="lokasi_rak" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Lokasi Rak
+                                    </label>
+                                    <input type="text"
+                                           name="lokasi_rak"
+                                           id="lokasi_rak"
+                                           value="{{ old('lokasi_rak', $sparepart->lokasi_rak) }}"
+                                           placeholder="A1-01, B2-15..."
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200">
+                                </div>
+                            </div>
+
+                            {{-- Stok, Stok Minimum & Harga Row --}}
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {{-- Stok --}}
                                 <div>
                                     <label for="stok" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -120,10 +134,30 @@
                                                value="{{ old('stok', $sparepart->stok) }}"
                                                min="0"
                                                required
-                                               class="w-full px-4 py-3 pr-16 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-200 @error('stok') border-red-500 ring-2 ring-red-500/20 @enderror">
+                                               class="w-full px-4 py-3 pr-16 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 @error('stok') border-red-500 ring-2 ring-red-500/20 @enderror">
                                         <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">unit</span>
                                     </div>
                                     @error('stok')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                {{-- Stok Minimum --}}
+                                <div>
+                                    <label for="stok_minimum" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Stok Minimum <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number"
+                                               name="stok_minimum"
+                                               id="stok_minimum"
+                                               value="{{ old('stok_minimum', $sparepart->stok_minimum) }}"
+                                               min="0"
+                                               required
+                                               class="w-full px-4 py-3 pr-16 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 @error('stok_minimum') border-red-500 ring-2 ring-red-500/20 @enderror">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">unit</span>
+                                    </div>
+                                    @error('stok_minimum')
                                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -142,25 +176,11 @@
                                                min="0"
                                                step="100"
                                                required
-                                               class="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-200 @error('harga') border-red-500 ring-2 ring-red-500/20 @enderror">
+                                               class="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 @error('harga') border-red-500 ring-2 ring-red-500/20 @enderror">
                                     </div>
                                     @error('harga')
                                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                     @enderror
-                                </div>
-                            </div>
-
-                            {{-- Timestamps Info --}}
-                            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span>
-                                        Dibuat: <strong>{{ $sparepart->created_at->format('d M Y, H:i') }}</strong>
-                                        &nbsp;•&nbsp;
-                                        Diubah: <strong>{{ $sparepart->updated_at->format('d M Y, H:i') }}</strong>
-                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -175,9 +195,9 @@
                                 Batal
                             </a>
                             <button type="submit"
-                                    class="inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 border border-transparent rounded-lg font-medium text-sm text-white hover:from-amber-600 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-all duration-200 shadow-md hover:shadow-lg">
+                                    class="inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 border border-transparent rounded-lg font-medium text-sm text-white hover:from-amber-600 hover:to-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-all duration-200 shadow-md hover:shadow-lg">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
                                 Update Data
                             </button>

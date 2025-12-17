@@ -1,59 +1,158 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# JDM Inventory System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem Manajemen Inventaris Sparepart untuk bengkel kendaraan JDM (Japanese Domestic Market).
 
-## About Laravel
+## 🚀 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### ✅ Manajemen Sparepart
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   CRUD lengkap untuk data sparepart
+-   **Pencarian global** (kode, nama, merk)
+-   **Filter** berdasarkan kategori, merk, dan status stok
+-   Lokasi rak untuk mempermudah pencarian di gudang
+-   Stok minimum dengan alert otomatis
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### ✅ Kategori Sparepart
 
-## Learning Laravel
+-   Pengelompokan sparepart berdasarkan kategori
+-   Warna badge untuk identifikasi visual
+-   Kategori default: Engine Parts, Body Parts, Suspension, Brake System, Electrical, Interior, Exhaust, Cooling System
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### ✅ Transaksi Stok
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   Barang Masuk & Keluar
+-   Update stok otomatis
+-   Validasi stok tidak mencukupi
 
-## Laravel Sponsors
+### ✅ Kartu Stok
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   Histori transaksi per sparepart
+-   Running balance (saldo berjalan)
+-   Export ke PDF
 
-### Premium Partners
+### ✅ Laporan & Export
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+-   **Laporan Stok PDF** - Daftar semua sparepart dengan status stok
+-   **Laporan Transaksi PDF** - Riwayat transaksi berdasarkan periode
+-   **Kartu Stok PDF** - Per item sparepart
+-   **Export Excel** - Sparepart dan Transaksi
 
-## Contributing
+### ✅ Dashboard
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-   Statistik inventory real-time
+-   Transaksi terbaru
+-   Alert stok menipis
 
-## Code of Conduct
+### ✅ Role-Based Access Control
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   **Admin**: Akses penuh ke semua fitur
+-   **Staff**: Kelola transaksi stok, lihat data
 
-## Security Vulnerabilities
+## 📋 Teknologi
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-   **Framework**: Laravel 11
+-   **Frontend**: Blade + Tailwind CSS + Alpine.js
+-   **Database**: MySQL
+-   **PDF Generation**: barryvdh/laravel-dompdf
+-   **Excel Export**: maatwebsite/excel
 
-## License
+## 🔧 Instalasi
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 1. Clone Repository
+
+```bash
+git clone <repository-url>
+cd jdm-inventory
+```
+
+### 2. Install Dependencies
+
+```bash
+composer install
+npm install
+```
+
+### 3. Setup Environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 4. Konfigurasi Database
+
+Edit file `.env`:
+
+```
+DB_DATABASE=jdm_inventory
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 5. Jalankan Migrasi & Seeder
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+### 6. Build Assets
+
+```bash
+npm run build
+```
+
+### 7. Jalankan Server
+
+```bash
+php artisan serve
+```
+
+Akses aplikasi di: **http://localhost:8000**
+
+## 👤 Akun Default
+
+| Role  | Email         | Password |
+| ----- | ------------- | -------- |
+| Admin | admin@jdm.com | password |
+| Staff | staff@jdm.com | password |
+
+## 📁 Struktur Fitur
+
+```
+├── Dashboard           # Statistik & Overview
+├── Sparepart          # CRUD + Search + Filter
+│   ├── Daftar         # List dengan pagination
+│   ├── Tambah         # Form tambah sparepart
+│   ├── Edit           # Form edit sparepart
+│   ├── Detail         # Info lengkap + transaksi terakhir
+│   └── Kartu Stok     # Histori transaksi per item
+├── Kategori           # CRUD kategori
+├── Transaksi          # Barang masuk/keluar
+└── Laporan            # PDF & Excel export
+    ├── Laporan Stok
+    ├── Laporan Transaksi
+    ├── Kartu Stok
+    └── Export Excel
+```
+
+## 📝 Changelog
+
+### v1.1.0 (2024-12-17)
+
+-   ✨ Tambah fitur Kategori Sparepart
+-   ✨ Tambah fitur Pencarian & Filter
+-   ✨ Tambah fitur Kartu Stok
+-   ✨ Tambah fitur Export PDF & Excel
+-   ✨ Tambah field Lokasi Rak & Stok Minimum
+-   🎨 Improve UI/UX dengan statistik real-time
+
+### v1.0.0
+
+-   🎉 Initial release
+-   Manajemen Sparepart dasar
+-   Transaksi Barang Masuk/Keluar
+-   Role Admin & Staff
+
+## 📄 License
+
+MIT License

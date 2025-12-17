@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sparepart extends Model
 {
@@ -11,15 +13,11 @@ class Sparepart extends Model
 
     /**
      * The table associated with the model.
-     *
-     * @var string
      */
     protected $table = 'spareparts';
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
      */
     protected $fillable = [
         'kode_part',
@@ -27,18 +25,60 @@ class Sparepart extends Model
         'merk',
         'stok',
         'harga',
+        'category_id',
+        'lokasi_rak',
+        'stok_minimum',
     ];
 
     /**
      * The attributes that should be cast.
-     *
-     * @return array<string, string>
      */
     protected function casts(): array
     {
         return [
             'stok' => 'integer',
             'harga' => 'decimal:2',
+            'stok_minimum' => 'integer',
         ];
+    }
+
+    /**
+     * Get the category that owns the sparepart.
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get all transactions for this sparepart.
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    /**
+     * Check if stock is low (at or below minimum).
+     */
+    public function isLowStock(): bool
+    {
+        return $this->stok <= $this->stok_minimum;
+    }
+
+    /**
+     * Check if out of stock.
+     */
+    public function isOutOfStock(): bool
+    {
+        return $this->stok <= 0;
+    }
+
+    /**
+     * Get total stock value (stok * harga).
+     */
+    public function getValueAttribute(): float
+    {
+        return $this->stok * $this->harga;
     }
 }

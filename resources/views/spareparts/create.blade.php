@@ -105,8 +105,41 @@
                                 @enderror
                             </div>
 
-                            {{-- Stok & Harga Row --}}
+                            {{-- Kategori & Lokasi Rak Row --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {{-- Kategori --}}
+                                <div>
+                                    <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Kategori
+                                    </label>
+                                    <select name="category_id"
+                                            id="category_id"
+                                            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200">
+                                        <option value="">-- Pilih Kategori --</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                {{ $category->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                {{-- Lokasi Rak --}}
+                                <div>
+                                    <label for="lokasi_rak" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Lokasi Rak
+                                    </label>
+                                    <input type="text"
+                                           name="lokasi_rak"
+                                           id="lokasi_rak"
+                                           value="{{ old('lokasi_rak') }}"
+                                           placeholder="A1-01, B2-15..."
+                                           class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200">
+                                </div>
+                            </div>
+
+                            {{-- Stok, Stok Minimum & Harga Row --}}
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {{-- Stok --}}
                                 <div>
                                     <label for="stok" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -123,6 +156,26 @@
                                         <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">unit</span>
                                     </div>
                                     @error('stok')
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                {{-- Stok Minimum --}}
+                                <div>
+                                    <label for="stok_minimum" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Stok Minimum <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number"
+                                               name="stok_minimum"
+                                               id="stok_minimum"
+                                               value="{{ old('stok_minimum', 5) }}"
+                                               min="0"
+                                               required
+                                               class="w-full px-4 py-3 pr-16 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 @error('stok_minimum') border-red-500 ring-2 ring-red-500/20 @enderror">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">unit</span>
+                                    </div>
+                                    @error('stok_minimum')
                                         <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                     @enderror
                                 </div>
@@ -181,9 +234,11 @@
                     </div>
                     <div class="ml-3">
                         <h3 class="text-sm font-medium text-blue-800 dark:text-blue-200">Tips</h3>
-                        <p class="mt-1 text-sm text-blue-700 dark:text-blue-300">
-                            Gunakan kode part yang unik dan mudah diingat. Contoh: <code class="px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-800">KR-HB-001</code> untuk Kampas Rem Honda Beat #001.
-                        </p>
+                        <ul class="mt-1 text-sm text-blue-700 dark:text-blue-300 list-disc list-inside space-y-1">
+                            <li>Gunakan kode part yang unik dan mudah diingat</li>
+                            <li>Stok minimum akan digunakan untuk alert stok menipis</li>
+                            <li>Lokasi rak membantu menemukan barang dengan cepat di gudang</li>
+                        </ul>
                     </div>
                 </div>
             </div>
