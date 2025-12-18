@@ -46,5 +46,8 @@ class DatabaseSeeder extends Seeder
         foreach ($categories as $category) {
             Category::create($category);
         }
+
+        // Create Spareparts
+        $this->call(SparepartSeeder::class);
     }
 }
