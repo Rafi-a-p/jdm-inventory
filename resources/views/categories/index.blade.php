@@ -49,8 +49,8 @@
             {{-- Categories Grid --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse($categories as $category)
-                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                        <div class="p-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                        <div class="p-6 flex-grow">
                             <div class="flex items-start justify-between">
                                 <div class="flex items-center">
                                     <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: {{ $category->warna }}20;">
@@ -68,12 +68,14 @@
                                     Aktif
                                 </span>
                             </div>
-                            @if($category->deskripsi)
-                                <p class="mt-4 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ $category->deskripsi }}</p>
-                            @endif
+                            <div class="mt-4 min-h-[40px]">
+                                @if($category->deskripsi)
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ $category->deskripsi }}</p>
+                                @endif
+                            </div>
                         </div>
                         @if(auth()->user()->role === 'admin')
-                        <div class="px-6 py-3 bg-gray-50 dark:bg-gray-700/50 flex justify-end space-x-2 border-t border-gray-200 dark:border-gray-700">
+                        <div class="px-6 py-3 bg-gray-50 dark:bg-gray-700/50 flex items-center justify-end space-x-2 border-t border-gray-200 dark:border-gray-700 min-h-[52px]">
                             <a href="{{ route('categories.edit', $category) }}" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors">
                                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>

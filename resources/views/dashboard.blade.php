@@ -116,14 +116,14 @@
                 <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Aksi Cepat</h4>
                 <div class="flex flex-wrap gap-4">
                     <a href="{{ route('transactions.create.masuk') }}"
-                       class="flex items-center px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-semibold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-sm">
+                       class="flex items-center px-5 py-2.5 bg-emerald-600 text-white rounded-lg font-semibold text-sm hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 transition-all shadow-sm">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
                         Barang Masuk
                     </a>
                     <a href="{{ route('transactions.create.keluar') }}"
-                       class="flex items-center px-5 py-2.5 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-lg font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm">
+                       class="flex items-center px-5 py-2.5 bg-rose-600 text-white rounded-lg font-semibold text-sm hover:bg-rose-700 dark:bg-rose-600 dark:hover:bg-rose-500 transition-all shadow-sm">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
                         </svg>
