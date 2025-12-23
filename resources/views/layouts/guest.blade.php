@@ -5,25 +5,88 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }} - Login</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            body {
+                font-family: 'Inter', sans-serif;
+            }
+
+            @keyframes gradient-shift {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+            }
+
+            .gradient-bg {
+                background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+                background-size: 400% 400%;
+                animation: gradient-shift 15s ease infinite;
+            }
+
+            .dark .gradient-bg {
+                background: linear-gradient(-45deg, #1e3a8a, #312e81, #4c1d95, #1e40af);
+                background-size: 400% 400%;
+                animation: gradient-shift 15s ease infinite;
+            }
+
+            .glass-card {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .dark .glass-card {
+                background: rgba(31, 41, 55, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(75, 85, 99, 0.3);
+            }
+
+            .pattern-dots {
+                background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+                background-size: 20px 20px;
+            }
+        </style>
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen gradient-bg pattern-dots flex flex-col sm:justify-center items-center pt-6 sm:pt-0 relative overflow-hidden">
+            <!-- Floating Shapes -->
+            <div class="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" style="animation: float 8s ease-in-out infinite;"></div>
+
+            <!-- Logo & Title -->
+            <div class="text-center mb-8 relative z-10">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="w-12 h-12 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-white mb-2 drop-shadow-lg">JDM Inventory System</h1>
+                <p class="text-white/80 text-sm font-medium">Sistem Manajemen Inventaris Bengkel</p>
             </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+            <!-- Login Card -->
+            <div class="w-full sm:max-w-md relative z-10">
+                <div class="glass-card shadow-2xl overflow-hidden sm:rounded-2xl px-8 py-10">
+                    {{ $slot }}
+                </div>
+
+                <!-- Footer -->
+                <p class="text-center mt-6 text-white/70 text-xs font-medium">
+                    © {{ date('Y') }} JDM Inventory. All rights reserved.
+                </p>
             </div>
         </div>
     </body>
