@@ -148,7 +148,7 @@ Akses aplikasi di: **http://localhost:8000**
 
 ## 📝 Changelog
 
-### v1.3.0 (2024-12-24)
+### v1.3.0 (2025-12-24)
 
 #### 📊 Reporting & Export Overhaul
 
@@ -163,7 +163,7 @@ Akses aplikasi di: **http://localhost:8000**
 -   🔒 **Role Access Tweaks**: Perbaikan akses filter transaksi untuk staff.
 -   🧹 **Code Optimization**: Pembersihan view yang tidak digunakan dan penyederhanaan controller laporan.
 
-### v1.2.0 (2024-12-23)
+### v1.2.0 (2025-12-23)
 
 #### 🎨 UI/UX Enhancements
 
@@ -171,7 +171,7 @@ Akses aplikasi di: **http://localhost:8000**
 -   ✨ **Dashboard Improvements**: Chart.js integration, animated counters, enhanced hover effects, better grid layout.
 -   🌙 **Dark Mode Optimization**: Adaptive chart colors dan consistent color scheme.
 
-### v1.1.0 (2024-12-17)
+### v1.1.0 (2025-12-17)
 
 -   ✨ Tambah fitur Kategori Sparepart
 -   ✨ Tambah fitur Pencarian & Filter
