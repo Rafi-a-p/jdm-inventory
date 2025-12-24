@@ -82,16 +82,13 @@
                                 </svg>
                                 Edit
                             </a>
-                            <form action="{{ route('categories.destroy', $category) }}" method="POST" class="inline" onsubmit="return confirm('Yakin hapus kategori ini? Sparepart dalam kategori ini akan menjadi tidak berkategori.')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                    </svg>
-                                    Hapus
-                                </button>
-                            </form>
+                            <button onclick="confirmDeleteCategory({{ $category->id }}, '{{ $category->nama }}')"
+                                    class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                Hapus
+                            </button>
                         </div>
                         @endif
                     </div>
@@ -117,4 +114,64 @@
             </div>
         </div>
     </div>
+
+    <!-- Hidden form for delete -->
+    <form id="delete-category-form" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+
+    <script>
+        function confirmDeleteCategory(id, name) {
+            const isDark = document.documentElement.classList.contains('dark');
+
+            Swal.fire({
+                title: 'Hapus Kategori?',
+                html: `Yakin hapus kategori <strong>${name}</strong>?<br><br><span class="text-red-500 font-medium">⚠️ Sparepart dalam kategori ini akan menjadi tidak berkategori!</span>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                background: isDark ? '#1f2937' : '#ffffff',
+                color: isDark ? '#f3f4f6' : '#1f2937',
+                customClass: {
+                    popup: 'rounded-2xl border shadow-2xl',
+                    title: 'text-xl font-bold',
+                    confirmButton: 'px-6 py-2.5 rounded-lg font-semibold',
+                    cancelButton: 'px-6 py-2.5 rounded-lg font-semibold',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.getElementById('delete-category-form');
+                    form.action = '{{ route("categories.index") }}/' + id;
+                    form.submit();
+                }
+            });
+        }
+
+        // Show success toast if there's a flash message
+        @if(session('success'))
+        document.addEventListener('DOMContentLoaded', function() {
+            const isDark = document.documentElement.classList.contains('dark');
+
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session("success") }}',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: isDark ? '#1f2937' : '#ffffff',
+                color: isDark ? '#f3f4f6' : '#1f2937',
+                customClass: {
+                    popup: 'rounded-xl shadow-lg border'
+                }
+            });
+        });
+        @endif
+    </script>
 </x-app-layout>

@@ -259,18 +259,13 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                 </svg>
                                             </a>
-                                            <form action="{{ route('spareparts.destroy', $sparepart) }}" method="POST" class="inline"
-                                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $sparepart->nama_barang }}?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        class="inline-flex items-center p-1.5 bg-red-100 hover:bg-red-200 dark:bg-red-900/50 dark:hover:bg-red-900 text-red-600 dark:text-red-400 rounded-lg transition-colors duration-150"
-                                                        title="Hapus">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                    </svg>
-                                                </button>
-                                            </form>
+                                            <button onclick="confirmDelete({{ $sparepart->id }}, '{{ $sparepart->nama_barang }}')"
+                                                    class="inline-flex items-center p-1.5 bg-red-100 hover:bg-red-200 dark:bg-red-900/50 dark:hover:bg-red-900 text-red-600 dark:text-red-400 rounded-lg transition-colors duration-150"
+                                                    title="Hapus">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                </svg>
+                                            </button>
                                             @endif
                                         </div>
                                     </td>
@@ -303,4 +298,70 @@
             </div>
         </div>
     </div>
+
+    <!-- Hidden form for delete -->
+    <form id="delete-form" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
+
+    <script>
+        function confirmDelete(id, name) {
+            const isDark = document.documentElement.classList.contains('dark');
+
+            Swal.fire({
+                title: 'Hapus Sparepart?',
+                html: `Apakah Anda yakin ingin menghapus<br><strong>${name}</strong>?<br><small class="text-gray-500">Data yang dihapus tidak dapat dikembalikan!</small>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: '<i class="fas fa-trash mr-2"></i> Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                background: isDark ? '#1f2937' : '#ffffff',
+                color: isDark ? '#f3f4f6' : '#1f2937',
+                customClass: {
+                    popup: 'rounded-2xl border shadow-2xl',
+                    title: 'text-xl font-bold',
+                    confirmButton: 'px-6 py-2.5 rounded-lg font-semibold',
+                    cancelButton: 'px-6 py-2.5 rounded-lg font-semibold',
+                },
+                showClass: {
+                    popup: 'animate__animated animate__fadeInUp animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutDown animate__faster'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const form = document.getElementById('delete-form');
+                    form.action = '{{ route("spareparts.index") }}/' + id;
+                    form.submit();
+                }
+            });
+        }
+
+        // Show success toast if there's a flash message
+        @if(session('success'))
+        document.addEventListener('DOMContentLoaded', function() {
+            const isDark = document.documentElement.classList.contains('dark');
+
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session("success") }}',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: isDark ? '#1f2937' : '#ffffff',
+                color: isDark ? '#f3f4f6' : '#1f2937',
+                customClass: {
+                    popup: 'rounded-xl shadow-lg border'
+                }
+            });
+        });
+        @endif
+    </script>
 </x-app-layout>
