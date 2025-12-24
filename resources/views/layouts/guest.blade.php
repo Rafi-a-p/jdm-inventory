@@ -7,6 +7,9 @@
 
         <title>{{ config('app.name', 'Laravel') }} - Login</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,13 +71,9 @@
 
             <!-- Logo & Title -->
             <div class="text-center mb-8 relative z-10">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl mb-4 transform hover:scale-110 transition-transform duration-300">
-                    <svg class="w-12 h-12 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                    </svg>
-                </div>
-                <h1 class="text-3xl font-bold text-white mb-2 drop-shadow-lg">JDM Inventory System</h1>
-                <p class="text-white/80 text-sm font-medium">Sistem Manajemen Inventaris Bengkel</p>
+                <img src="{{ asset('logo.png') }}" alt="JDM Inventory Logo" class="mx-auto mb-4 drop-shadow-2xl" style="width: 112px; height: auto;">
+                <h1 class="text-3xl font-bold text-white mb-2 drop-shadow-lg" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.3);">JDM Inventory System</h1>
+                <p class="text-white/90 text-sm font-medium" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Sistem Manajemen Inventaris Bengkel</p>
             </div>
 
             <!-- Login Card -->
