@@ -4,11 +4,12 @@ Sistem Manajemen Inventaris Sparepart untuk bengkel kendaraan JDM (Japanese Dome
 
 ## ✨ Highlights
 
--   🎨 **Modern UI/UX** - Glassmorphism design dengan animasi smooth
+-   🎨 **Modern UI/UX** - Glassmorphism design dengan animasi smooth & vibrant colors
 -   📊 **Data Visualization** - Interactive charts dengan Chart.js
 -   🌙 **Dark Mode** - Fully optimized untuk light & dark theme
 -   📱 **Responsive Design** - Mobile-first approach
 -   🔐 **Secure Authentication** - Role-based access control
+-   🔔 **SweetAlert2** - Modern notifications & confirmation modals
 
 ## 🚀 Fitur Utama
 
@@ -18,7 +19,7 @@ Sistem Manajemen Inventaris Sparepart untuk bengkel kendaraan JDM (Japanese Dome
 -   **Pencarian global** (kode, nama, merk)
 -   **Filter** berdasarkan kategori, merk, dan status stok
 -   Lokasi rak untuk mempermudah pencarian di gudang
--   Stok minimum dengan alert otomatis
+-   Stok minimum dengan alert otomatis & status visual
 
 ### ✅ Kategori Sparepart
 
@@ -32,51 +33,45 @@ Sistem Manajemen Inventaris Sparepart untuk bengkel kendaraan JDM (Japanese Dome
 -   Update stok otomatis
 -   Validasi stok tidak mencukupi
 -   Real-time transaction tracking
+-   Audit trail per transaksi (timestamp & user)
 
 ### ✅ Kartu Stok
 
 -   Histori transaksi per sparepart
 -   Running balance (saldo berjalan)
--   Export ke PDF
+-   Export ke PDF (A4 Portrait)
 
 ### ✅ Laporan & Export
 
--   **Laporan Stok PDF** - Daftar semua sparepart dengan status stok
--   **Laporan Transaksi PDF** - Riwayat transaksi berdasarkan periode
--   **Kartu Stok PDF** - Per item sparepart
--   **Export Excel** - Sparepart dan Transaksi
+-   **Laporan Stok PDF** - Format A4 Portrait, dioptimalkan untuk cetak
+-   **Laporan Transaksi PDF** - Riwayat transaksi periode tertentu (A4 Portrait)
+-   **Native CSV Export** - Export data Sparepart & Transaksi ke format CSV (Excel Ready)
+-   **Filter Laporan** - Filter berdasarkan kategori, tanggal, dan tipe transaksi
 
 ### ✅ Dashboard Interaktif
 
 -   📈 **Grafik Transaksi** - Line chart 7 hari terakhir (Barang Masuk vs Keluar)
 -   🔢 **Animated Counters** - Statistik yang count up secara smooth
--   📊 **Real-time Statistics** - Total jenis, total stok, transaksi hari ini
--   ⚠️ **Low Stock Alert** - Notifikasi stok menipis (< 5 unit)
+-   📊 **Real-time Statistics** - Total jenis, total stok, nilai inventaris, transaksi hari ini
+-   ⚠️ **Low Stock Alert** - Notifikasi stok menipis secara visual
 -   🕒 **Recent Transactions** - Transaksi terbaru dengan timestamp
--   🎯 **Quick Actions** - Shortcut untuk aksi cepat
 
 ### ✅ Login Page Premium
 
 -   🎨 **Animated Gradient Background** - Gradient bergerak dengan floating shapes
 -   🏢 **Professional Branding** - Logo dan branding JDM Inventory System
 -   🔒 **Password Toggle** - Show/hide password dengan icon
--   📱 **Fully Responsive** - Optimized untuk semua device
--   ✨ **Micro-animations** - Smooth transitions dan hover effects
-
-### ✅ Role-Based Access Control
-
--   **Admin**: Akses penuh ke semua fitur
--   **Staff**: Kelola transaksi stok, lihat data
 
 ## 📋 Teknologi
 
--   **Framework**: Laravel 11
+-   **Framework**: Laravel 12
 -   **Frontend**: Blade + Tailwind CSS + Alpine.js
 -   **Database**: MySQL
 -   **Charts**: Chart.js 4.x
--   **Fonts**: Google Fonts (Inter)
+-   **Modals**: SweetAlert2
 -   **PDF Generation**: barryvdh/laravel-dompdf
--   **Excel Export**: maatwebsite/excel
+-   **CSV Export**: Native PHP Streamed Response (Excel Ready)
+-   **Icons**: Heroicons
 
 ## 🔧 Instalasi
 
@@ -143,50 +138,38 @@ Akses aplikasi di: **http://localhost:8000**
 ```
 ├── Dashboard           # Statistik & Overview
 ├── Sparepart          # CRUD + Search + Filter
-│   ├── Daftar         # List dengan pagination
-│   ├── Tambah         # Form tambah sparepart
-│   ├── Edit           # Form edit sparepart
-│   ├── Detail         # Info lengkap + transaksi terakhir
-│   └── Kartu Stok     # Histori transaksi per item
 ├── Kategori           # CRUD kategori
 ├── Transaksi          # Barang masuk/keluar
-└── Laporan            # PDF & Excel export
-    ├── Laporan Stok
-    ├── Laporan Transaksi
-    ├── Kartu Stok
-    └── Export Excel
+└── Laporan            # PDF & CSV export (Simplified)
+    ├── Laporan Stok (Portrait PDF)
+    ├── Laporan Transaksi (Portrait PDF)
+    └── Export CSV (Native Stream)
 ```
 
 ## 📝 Changelog
+
+### v1.3.0 (2024-12-24)
+
+#### 📊 Reporting & Export Overhaul
+
+-   🚀 **Redesigned Report Page**: Halaman laporan yang lebih clean dan fokus pada fungsi export.
+-   📄 **PDF Portrait Optimization**: Semua laporan PDF (Stok & Transaksi) diubah ke format **A4 Portrait** dengan layout yang disesuaikan agar tidak terpotong.
+-   📊 **Native CSV Export**: Implementasi export data ke CSV menggunakan native PHP untuk kompatibilitas Excel yang lebih baik dan performa lebih cepat.
+-   🎨 **Favicon Update**: Migrasi ke `favicon.ico` standar untuk branding yang lebih konsisten.
+
+#### 🛠️ Internal Improvements
+
+-   🔔 **SweetAlert2 Integration**: Mengganti modal konfirmasi hapus standar dengan SweetAlert2 yang lebih modern dan aman.
+-   🔒 **Role Access Tweaks**: Perbaikan akses filter transaksi untuk staff.
+-   🧹 **Code Optimization**: Pembersihan view yang tidak digunakan dan penyederhanaan controller laporan.
 
 ### v1.2.0 (2024-12-23)
 
 #### 🎨 UI/UX Enhancements
 
--   ✨ **Login Page Redesign**
-    -   Animated gradient background dengan floating shapes
-    -   Glassmorphism card design
-    -   Professional branding dengan logo JDM Inventory
-    -   Password visibility toggle
-    -   Enhanced form inputs dengan icons
-    -   Smooth animations & micro-interactions
-    -   Google Fonts (Inter) integration
--   ✨ **Dashboard Improvements**
-    -   📊 Chart.js integration untuk visualisasi transaksi 7 hari
-    -   🔢 Animated counters untuk statistik (count up effect)
-    -   Enhanced hover effects pada semua cards
-    -   Better layout dengan grid system
-    -   Empty states dengan icons
-    -   Improved spacing & visual hierarchy
--   ✨ **Interactive Elements**
-    -   Card hover effects (lift up + shadow)
-    -   Icon scale animations
-    -   Smooth transitions di semua elemen
-    -   Better button states & feedback
--   🌙 **Dark Mode Optimization**
-    -   Chart colors adaptive dengan theme
-    -   Better contrast untuk readability
-    -   Consistent color scheme
+-   ✨ **Login Page Redesign**: Animated gradient, glassmorphism card, branding JDM, password visibility toggle.
+-   ✨ **Dashboard Improvements**: Chart.js integration, animated counters, enhanced hover effects, better grid layout.
+-   🌙 **Dark Mode Optimization**: Adaptive chart colors dan consistent color scheme.
 
 ### v1.1.0 (2024-12-17)
 
@@ -195,37 +178,11 @@ Akses aplikasi di: **http://localhost:8000**
 -   ✨ Tambah fitur Kartu Stok
 -   ✨ Tambah fitur Export PDF & Excel
 -   ✨ Tambah field Lokasi Rak & Stok Minimum
--   🎨 Improve UI/UX dengan statistik real-time
 
 ### v1.0.0
 
 -   🎉 Initial release
--   Manajemen Sparepart dasar
--   Transaksi Barang Masuk/Keluar
--   Role Admin & Staff
-
-## 🎯 Fitur yang Akan Datang
-
--   [ ] Notifikasi real-time
--   [ ] Barcode scanning
--   [ ] Multi-warehouse support
--   [ ] Advanced analytics & reporting
--   [ ] Mobile app
-
-## 📸 Screenshots
-
-### Login Page
-
--   Modern gradient background dengan glassmorphism effect
--   Password toggle untuk better UX
--   Fully responsive design
-
-### Dashboard
-
--   Interactive charts dengan Chart.js
--   Animated statistics counters
--   Real-time data visualization
--   Quick actions untuk workflow cepat
+-   Manajemen Sparepart dasar & Transaksi Barang Masuk/Keluar
 
 ## 🤝 Contributing
 

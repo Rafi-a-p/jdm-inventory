@@ -12,47 +12,48 @@
         }
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 10px;
-            line-height: 1.4;
+            font-size: 8px;
+            line-height: 1.3;
             color: #333;
         }
         .header {
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0;
             border-bottom: 2px solid #4f46e5;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .header h1 {
-            font-size: 20px;
+            font-size: 16px;
             color: #4f46e5;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         .header p {
             color: #666;
-            font-size: 11px;
+            font-size: 9px;
         }
         .stats-grid {
             display: table;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .stat-box {
             display: table-cell;
             width: 25%;
-            padding: 10px;
+            padding: 8px 4px;
             text-align: center;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
         }
         .stat-box .label {
-            font-size: 9px;
+            font-size: 7px;
             color: #64748b;
             text-transform: uppercase;
         }
         .stat-box .value {
-            font-size: 16px;
+            font-size: 12px;
             font-weight: bold;
             color: #1e293b;
+            margin-top: 2px;
         }
         table {
             width: 100%;
@@ -62,15 +63,16 @@
         th {
             background: #4f46e5;
             color: white;
-            padding: 8px 6px;
+            padding: 5px 3px;
             text-align: left;
-            font-size: 9px;
+            font-size: 7px;
             text-transform: uppercase;
+            font-weight: bold;
         }
         td {
-            padding: 8px 6px;
+            padding: 4px 3px;
             border-bottom: 1px solid #e2e8f0;
-            font-size: 9px;
+            font-size: 7px;
         }
         tr:nth-child(even) {
             background: #f8fafc;
@@ -94,11 +96,11 @@
             font-weight: bold;
         }
         .footer {
-            margin-top: 30px;
-            padding-top: 10px;
+            margin-top: 20px;
+            padding-top: 8px;
             border-top: 1px solid #e2e8f0;
             text-align: center;
-            font-size: 9px;
+            font-size: 7px;
             color: #64748b;
         }
     </style>
@@ -120,7 +122,7 @@
         </div>
         <div class="stat-box">
             <div class="label">Total Nilai</div>
-            <div class="value">Rp {{ number_format($totalValue, 0, ',', '.') }}</div>
+            <div class="value">Rp {{ number_format($totalValue / 1000000, 1) }}jt</div>
         </div>
         <div class="stat-box">
             <div class="label">Stok Menipis</div>
@@ -131,17 +133,14 @@
     <table>
         <thead>
             <tr>
-                <th style="width: 30px;">No</th>
-                <th style="width: 80px;">Kode Part</th>
+                <th style="width: 20px;">No</th>
+                <th style="width: 60px;">Kode Part</th>
                 <th>Nama Barang</th>
-                <th style="width: 70px;">Merk</th>
-                <th style="width: 70px;">Kategori</th>
-                <th style="width: 50px;">Lokasi</th>
-                <th class="text-center" style="width: 50px;">Stok</th>
-                <th class="text-center" style="width: 40px;">Min</th>
-                <th class="text-right" style="width: 80px;">Harga</th>
-                <th class="text-right" style="width: 90px;">Total Nilai</th>
-                <th class="text-center" style="width: 60px;">Status</th>
+                <th style="width: 50px;">Merk</th>
+                <th style="width: 35px;" class="text-center">Stok</th>
+                <th style="width: 30px;" class="text-center">Min</th>
+                <th style="width: 55px;" class="text-right">Harga</th>
+                <th style="width: 40px;" class="text-center">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -151,17 +150,14 @@
                 <td>{{ $item->kode_part }}</td>
                 <td>{{ $item->nama_barang }}</td>
                 <td>{{ $item->merk }}</td>
-                <td>{{ $item->category?->nama ?? '-' }}</td>
-                <td>{{ $item->lokasi_rak ?? '-' }}</td>
                 <td class="text-center">{{ $item->stok }}</td>
                 <td class="text-center">{{ $item->stok_minimum }}</td>
-                <td class="text-right">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                <td class="text-right">Rp {{ number_format($item->stok * $item->harga, 0, ',', '.') }}</td>
+                <td class="text-right">{{ number_format($item->harga / 1000, 0) }}k</td>
                 <td class="text-center">
                     @if($item->stok <= 0)
                         <span class="status-out">HABIS</span>
                     @elseif($item->stok <= $item->stok_minimum)
-                        <span class="status-low">MENIPIS</span>
+                        <span class="status-low">LOW</span>
                     @else
                         <span class="status-normal">OK</span>
                     @endif

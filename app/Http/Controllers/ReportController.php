@@ -49,7 +49,7 @@ class ReportController extends Controller
             'spareparts', 'totalItems', 'totalStock', 'totalValue', 'lowStockCount'
         ));
 
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
 
         return $pdf->download('laporan-stok-' . now()->format('Y-m-d') . '.pdf');
     }
@@ -90,7 +90,7 @@ class ReportController extends Controller
         ];
 
         $pdf = Pdf::loadView('reports.pdf.transactions', compact('transactions', 'stats'));
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
 
         return $pdf->download('laporan-transaksi-' . $request->from_date . '-' . $request->to_date . '.pdf');
     }

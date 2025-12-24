@@ -12,61 +12,57 @@
         }
         body {
             font-family: 'DejaVu Sans', Arial, sans-serif;
-            font-size: 10px;
-            line-height: 1.4;
+            font-size: 8px;
+            line-height: 1.3;
             color: #333;
         }
         .header {
             text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid #4f46e5;
-            margin-bottom: 20px;
+            padding: 15px 0;
+            border-bottom: 2px solid #10b981;
+            margin-bottom: 15px;
         }
         .header h1 {
-            font-size: 20px;
-            color: #4f46e5;
-            margin-bottom: 5px;
+            font-size: 16px;
+            color: #10b981;
+            margin-bottom: 3px;
         }
         .header p {
             color: #666;
-            font-size: 11px;
-        }
-        .period {
-            background: #f0f9ff;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .period strong {
-            color: #0369a1;
+            font-size: 9px;
         }
         .stats-grid {
             display: table;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .stat-box {
             display: table-cell;
             width: 33.33%;
-            padding: 10px;
+            padding: 8px 4px;
             text-align: center;
-            border: 1px solid #e2e8f0;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
         }
         .stat-box .label {
-            font-size: 9px;
-            color: #64748b;
+            font-size: 7px;
+            color: #166534;
             text-transform: uppercase;
         }
         .stat-box .value {
-            font-size: 18px;
+            font-size: 12px;
             font-weight: bold;
+            color: #15803d;
+            margin-top: 2px;
         }
-        .stat-box.masuk .value {
-            color: #22c55e;
-        }
-        .stat-box.keluar .value {
-            color: #ef4444;
+        .period {
+            text-align: center;
+            padding: 8px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 12px;
+            font-size: 9px;
+            color: #475569;
         }
         table {
             width: 100%;
@@ -74,17 +70,18 @@
             margin-top: 10px;
         }
         th {
-            background: #4f46e5;
+            background: #10b981;
             color: white;
-            padding: 8px 6px;
+            padding: 5px 3px;
             text-align: left;
-            font-size: 9px;
+            font-size: 7px;
             text-transform: uppercase;
+            font-weight: bold;
         }
         td {
-            padding: 8px 6px;
+            padding: 4px 3px;
             border-bottom: 1px solid #e2e8f0;
-            font-size: 9px;
+            font-size: 7px;
         }
         tr:nth-child(even) {
             background: #f8fafc;
@@ -95,35 +92,28 @@
         .text-center {
             text-align: center;
         }
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 8px;
-            font-weight: bold;
-        }
         .badge-masuk {
             background: #dcfce7;
             color: #166534;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-weight: bold;
+            font-size: 6px;
         }
         .badge-keluar {
             background: #fee2e2;
             color: #991b1b;
-        }
-        .qty-masuk {
-            color: #22c55e;
+            padding: 1px 4px;
+            border-radius: 2px;
             font-weight: bold;
-        }
-        .qty-keluar {
-            color: #ef4444;
-            font-weight: bold;
+            font-size: 6px;
         }
         .footer {
-            margin-top: 30px;
-            padding-top: 10px;
+            margin-top: 20px;
+            padding-top: 8px;
             border-top: 1px solid #e2e8f0;
             text-align: center;
-            font-size: 9px;
+            font-size: 7px;
             color: #64748b;
         }
     </style>
@@ -135,64 +125,62 @@
     </div>
 
     <div class="period">
-        <strong>Periode:</strong> {{ $stats['from_date'] }} - {{ $stats['to_date'] }}
+        <strong>Periode:</strong> {{ $stats['from_date'] }} s/d {{ $stats['to_date'] }}
     </div>
 
     <div class="stats-grid">
         <div class="stat-box">
             <div class="label">Total Transaksi</div>
-            <div class="value">{{ $stats['total'] }}</div>
+            <div class="value">{{ number_format($stats['total']) }}</div>
         </div>
-        <div class="stat-box masuk">
-            <div class="label">Total Masuk</div>
-            <div class="value">+{{ number_format($stats['masuk']) }} unit</div>
+        <div class="stat-box">
+            <div class="label">Barang Masuk</div>
+            <div class="value">{{ number_format($stats['masuk']) }}</div>
         </div>
-        <div class="stat-box keluar">
-            <div class="label">Total Keluar</div>
-            <div class="value">-{{ number_format($stats['keluar']) }} unit</div>
+        <div class="stat-box">
+            <div class="label">Barang Keluar</div>
+            <div class="value">{{ number_format($stats['keluar']) }}</div>
         </div>
     </div>
 
     <table>
         <thead>
             <tr>
-                <th style="width: 30px;">No</th>
-                <th style="width: 70px;">Tanggal</th>
-                <th style="width: 45px;">Waktu</th>
-                <th style="width: 60px;">Tipe</th>
-                <th style="width: 70px;">Kode Part</th>
+                <th style="width: 18px;">No</th>
+                <th style="width: 55px;">Tanggal/Waktu</th>
+                <th style="width: 45px;">Tipe</th>
+                <th style="width: 55px;">Kode Part</th>
                 <th>Nama Barang</th>
-                <th style="width: 60px;">Merk</th>
-                <th class="text-center" style="width: 50px;">Jumlah</th>
-                <th>Keterangan</th>
-                <th style="width: 80px;">Dicatat Oleh</th>
+                <th class="text-center" style="width: 35px;">Qty</th>
+                <th style="width: 80px;">Keterangan</th>
+                <th style="width: 60px;">User</th>
             </tr>
         </thead>
         <tbody>
-            @forelse($transactions as $index => $trans)
+            @foreach($transactions as $index => $item)
             <tr>
                 <td class="text-center">{{ $index + 1 }}</td>
-                <td>{{ $trans->created_at->format('d/m/Y') }}</td>
-                <td>{{ $trans->created_at->format('H:i') }}</td>
+                <td>{{ $item->created_at->format('d/m/y H:i') }}</td>
                 <td>
-                    <span class="badge {{ $trans->type === 'masuk' ? 'badge-masuk' : 'badge-keluar' }}">
-                        {{ $trans->type === 'masuk' ? 'MASUK' : 'KELUAR' }}
-                    </span>
+                    @if($item->type === 'masuk')
+                        <span class="badge-masuk">MASUK</span>
+                    @else
+                        <span class="badge-keluar">KELUAR</span>
+                    @endif
                 </td>
-                <td>{{ $trans->sparepart->kode_part }}</td>
-                <td>{{ $trans->sparepart->nama_barang }}</td>
-                <td>{{ $trans->sparepart->merk }}</td>
-                <td class="text-center {{ $trans->type === 'masuk' ? 'qty-masuk' : 'qty-keluar' }}">
-                    {{ $trans->type === 'masuk' ? '+' : '-' }}{{ $trans->quantity }}
+                <td>{{ $item->sparepart->kode_part }}</td>
+                <td>{{ $item->sparepart->nama_barang }}</td>
+                <td class="text-center">
+                    @if($item->type === 'masuk')
+                        <span style="color: #16a34a; font-weight: bold;">+{{ $item->quantity }}</span>
+                    @else
+                        <span style="color: #dc2626; font-weight: bold;">-{{ $item->quantity }}</span>
+                    @endif
                 </td>
-                <td>{{ $trans->keterangan ?? '-' }}</td>
-                <td>{{ $trans->user->name }}</td>
+                <td>{{ Str::limit($item->keterangan ?? '-', 30) }}</td>
+                <td>{{ $item->user->name }}</td>
             </tr>
-            @empty
-            <tr>
-                <td colspan="10" class="text-center" style="padding: 30px;">Tidak ada transaksi pada periode ini</td>
-            </tr>
-            @endforelse
+            @endforeach
         </tbody>
     </table>
 
