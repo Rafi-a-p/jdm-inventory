@@ -27,6 +27,12 @@
                     <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
                         {{ __('Laporan') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pemetaan-barang.index')" :active="request()->routeIs('pemetaan-barang.*')">
+                        {{ __('Pemetaan Barang') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')">
+                        {{ __('User Log') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -103,6 +109,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
                 {{ __('Laporan') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pemetaan-barang.index')" :active="request()->routeIs('pemetaan-barang.*')">
+                {{ __('Pemetaan Barang') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')">
+                {{ __('User Log') }}
             </x-responsive-nav-link>
         </div>
 

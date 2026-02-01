@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Category;
 use App\Models\Sparepart;
 use App\Models\Transaction;
@@ -133,7 +134,9 @@ class SparepartController extends Controller
             'stok_minimum.required' => 'Stok minimum wajib diisi.',
         ]);
 
-        Sparepart::create($validated);
+        $sparepart = Sparepart::create($validated);
+
+        ActivityLogger::log('create', 'sparepart', $sparepart->id, 'Menambah sparepart: ' . $sparepart->nama_barang . ' (' . $sparepart->kode_part . ')', null, $sparepart->toArray());
 
         return redirect()->route('spareparts.index')
             ->with('success', 'Data sparepart berhasil ditambahkan!');
@@ -239,7 +242,10 @@ class SparepartController extends Controller
             'stok_minimum.required' => 'Stok minimum wajib diisi.',
         ]);
 
+        $oldValues = $sparepart->toArray();
         $sparepart->update($validated);
+
+        ActivityLogger::log('update', 'sparepart', $sparepart->id, 'Mengubah sparepart: ' . $sparepart->nama_barang . ' (' . $sparepart->kode_part . ')', $oldValues, $sparepart->fresh()->toArray());
 
         return redirect()->route('spareparts.index')
             ->with('success', 'Data sparepart berhasil diperbarui!');
@@ -253,7 +259,12 @@ class SparepartController extends Controller
     {
         $this->authorizeAdmin();
 
+        $nama = $sparepart->nama_barang;
+        $kode = $sparepart->kode_part;
+        $oldValues = $sparepart->toArray();
         $sparepart->delete();
+
+        ActivityLogger::log('delete', 'sparepart', null, 'Menghapus sparepart: ' . $nama . ' (' . $kode . ')', $oldValues, null);
 
         return redirect()->route('spareparts.index')
             ->with('success', 'Data sparepart berhasil dihapus!');

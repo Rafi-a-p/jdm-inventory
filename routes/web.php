@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\PemetaanBarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SparepartController;
@@ -43,6 +45,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/stock', [ReportController::class, 'stockReport'])->name('reports.stock');
     Route::get('/reports/transactions', [ReportController::class, 'transactionReport'])->name('reports.transactions');
     Route::get('/reports/stock-card/{sparepart}', [ReportController::class, 'stockCard'])->name('reports.stock-card');
+
+    // Activity Log (User Log)
+    Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
+
+    // Pemetaan Barang (Item mapping by category/location)
+    Route::get('/pemetaan-barang', [PemetaanBarangController::class, 'index'])->name('pemetaan-barang.index');
 
     // Export Routes
     Route::get('/export/spareparts', [ExportController::class, 'spareparts'])->name('export.spareparts');

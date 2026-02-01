@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Sparepart;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -86,9 +87,10 @@ class TransactionController extends Controller
             'quantity.min' => 'Jumlah minimal 1.',
         ]);
 
-        DB::transaction(function () use ($validated) {
+        $transaction = null;
+        DB::transaction(function () use ($validated, &$transaction) {
             // Create transaction
-            Transaction::create([
+            $transaction = Transaction::create([
                 'type' => 'masuk',
                 'sparepart_id' => $validated['sparepart_id'],
                 'user_id' => Auth::id(),
@@ -100,6 +102,9 @@ class TransactionController extends Controller
             $sparepart = Sparepart::find($validated['sparepart_id']);
             $sparepart->increment('stok', $validated['quantity']);
         });
+
+        $sparepart = Sparepart::find($validated['sparepart_id']);
+        ActivityLogger::log('transaction_masuk', 'transaction', $transaction->id, 'Barang masuk: ' . $sparepart->nama_barang . ' (+' . $validated['quantity'] . ' unit)', null, ['sparepart_id' => $validated['sparepart_id'], 'quantity' => $validated['quantity']]);
 
         return redirect()->route('transactions.index')
             ->with('success', 'Transaksi Barang Masuk berhasil dicatat! Stok telah diperbarui.');
@@ -130,9 +135,10 @@ class TransactionController extends Controller
             ])->withInput();
         }
 
-        DB::transaction(function () use ($validated, $sparepart) {
+        $transaction = null;
+        DB::transaction(function () use ($validated, $sparepart, &$transaction) {
             // Create transaction
-            Transaction::create([
+            $transaction = Transaction::create([
                 'type' => 'keluar',
                 'sparepart_id' => $validated['sparepart_id'],
                 'user_id' => Auth::id(),
@@ -143,6 +149,8 @@ class TransactionController extends Controller
             // Update stock
             $sparepart->decrement('stok', $validated['quantity']);
         });
+
+        ActivityLogger::log('transaction_keluar', 'transaction', $transaction->id, 'Barang keluar: ' . $sparepart->nama_barang . ' (-' . $validated['quantity'] . ' unit)', null, ['sparepart_id' => $validated['sparepart_id'], 'quantity' => $validated['quantity']]);
 
         return redirect()->route('transactions.index')
             ->with('success', 'Transaksi Barang Keluar berhasil dicatat! Stok telah diperbarui.');

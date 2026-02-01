@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogger;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,9 @@ class CategoryController extends Controller
             'nama.unique' => 'Nama kategori sudah digunakan.',
         ]);
 
-        Category::create($validated);
+        $category = Category::create($validated);
+
+        ActivityLogger::log('create', 'category', $category->id, 'Menambah kategori: ' . $category->nama, null, $category->toArray());
 
         return redirect()->route('categories.index')
             ->with('success', 'Kategori berhasil ditambahkan!');
@@ -91,7 +94,10 @@ class CategoryController extends Controller
             'nama.unique' => 'Nama kategori sudah digunakan.',
         ]);
 
+        $oldValues = $category->toArray();
         $category->update($validated);
+
+        ActivityLogger::log('update', 'category', $category->id, 'Mengubah kategori: ' . $category->nama, $oldValues, $category->fresh()->toArray());
 
         return redirect()->route('categories.index')
             ->with('success', 'Kategori berhasil diperbarui!');
@@ -104,8 +110,12 @@ class CategoryController extends Controller
     {
         $this->authorizeAdmin();
 
+        $nama = $category->nama;
+        $oldValues = $category->toArray();
         // Spareparts in this category will have null category_id due to nullOnDelete
         $category->delete();
+
+        ActivityLogger::log('delete', 'category', null, 'Menghapus kategori: ' . $nama, $oldValues, null);
 
         return redirect()->route('categories.index')
             ->with('success', 'Kategori berhasil dihapus!');

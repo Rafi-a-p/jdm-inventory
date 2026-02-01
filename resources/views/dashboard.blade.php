@@ -144,6 +144,67 @@
                 </div>
             </div>
 
+            {{-- Diagram Interaktif: Aktivitas & Alur Tindakan --}}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {{-- Diagram Aktivitas (Doughnut) --}}
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-gray-700">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h4 class="text-base font-bold text-gray-900 dark:text-white flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-violet-500 mr-2"></span>
+                                Distribusi Tindakan (7 Hari Terakhir)
+                            </h4>
+                            <a href="{{ route('activity-logs.index') }}" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline">USER LOG</a>
+                        </div>
+                        <div class="relative h-64 flex items-center justify-center">
+                            <canvas id="activityChart"></canvas>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">Klik legend untuk menyembunyikan/menampilkan. Lihat detail di menu User Log.</p>
+                    </div>
+                </div>
+
+                {{-- Alur Tindakan Interaktif (Flowchart) --}}
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-gray-700">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h4 class="text-base font-bold text-gray-900 dark:text-white flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-2"></span>
+                                Alur Tindakan & Menu
+                            </h4>
+                        </div>
+                        <div class="overflow-x-auto pb-4">
+                            <div id="flow-diagram" class="min-w-[520px] flex flex-col items-center gap-4 py-4">
+                                {{-- Baris 1: User -> Login --}}
+                                <div class="flex items-center gap-2">
+                                    <div class="flow-node px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-sm border-2 border-slate-300 dark:border-slate-600">
+                                        User
+                                    </div>
+                                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                                    <a href="{{ route('dashboard') }}" class="flow-node px-4 py-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-200 font-semibold text-sm border-2 border-emerald-400 dark:border-emerald-600 hover:scale-105 transition-transform" title="Dashboard">
+                                        Login / Dashboard
+                                    </a>
+                                </div>
+                                {{-- Baris 2: Menu akses --}}
+                                <div class="flex items-center gap-1">
+                                    <svg class="w-5 h-5 text-gray-400 rotate-90 self-center" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                                </div>
+                                <div class="flex flex-wrap justify-center gap-2">
+                                    <a href="{{ route('spareparts.index') }}" class="flow-node px-3 py-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/40 text-indigo-800 dark:text-indigo-200 font-medium text-xs border-2 border-indigo-400 dark:border-indigo-600 hover:scale-105 transition-transform" title="Data Sparepart">Sparepart</a>
+                                    <a href="{{ route('transactions.index') }}" class="flow-node px-3 py-2 rounded-lg bg-rose-100 dark:bg-rose-900/40 text-rose-800 dark:text-rose-200 font-medium text-xs border-2 border-rose-400 dark:border-rose-600 hover:scale-105 transition-transform" title="Transaksi">Transaksi</a>
+                                    <a href="{{ route('categories.index') }}" class="flow-node px-3 py-2 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-200 font-medium text-xs border-2 border-amber-400 dark:border-amber-600 hover:scale-105 transition-transform" title="Kategori">Kategori</a>
+                                    <a href="{{ route('reports.index') }}" class="flow-node px-3 py-2 rounded-lg bg-cyan-100 dark:bg-cyan-900/40 text-cyan-800 dark:text-cyan-200 font-medium text-xs border-2 border-cyan-400 dark:border-cyan-600 hover:scale-105 transition-transform" title="Laporan">Laporan</a>
+                                    <a href="{{ route('pemetaan-barang.index') }}" class="flow-node px-3 py-2 rounded-lg bg-violet-100 dark:bg-violet-900/40 text-violet-800 dark:text-violet-200 font-medium text-xs border-2 border-violet-400 dark:border-violet-600 hover:scale-105 transition-transform" title="Pemetaan Barang">Pemetaan</a>
+                                    <a href="{{ route('activity-logs.index') }}" class="flow-node px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-medium text-xs border-2 border-slate-400 dark:border-slate-600 hover:scale-105 transition-transform" title="User Log">
+                                        User Log
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 text-center mt-4">Klik node untuk membuka menu. Diagram ini memudahkan navigasi dan deteksi alur tindakan.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
                 {{-- Transaction Chart --}}
                 <div class="lg:col-span-2 bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-gray-700">
@@ -265,6 +326,61 @@
 
                 updateCounter();
             });
+
+            // Chart.js - Activity Doughnut (Distribusi Tindakan)
+            const activityCtx = document.getElementById('activityChart');
+            if (activityCtx) {
+                const isDark = document.documentElement.classList.contains('dark');
+                const activityLabels = @json($activityChartLabels);
+                const activityData = @json($activityChartData);
+                const activityColors = [
+                    'rgb(16, 185, 129)',   // emerald - login
+                    'rgb(100, 116, 139)',  // slate - logout
+                    'rgb(99, 102, 241)',   // indigo - create
+                    'rgb(245, 158, 11)',   // amber - update
+                    'rgb(244, 63, 94)',   // rose - delete
+                    'rgb(16, 185, 129)',  // emerald - masuk
+                    'rgb(244, 63, 94)',   // rose - keluar
+                ];
+
+                new Chart(activityCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: activityLabels,
+                        datasets: [{
+                            data: activityData,
+                            backgroundColor: activityColors.slice(0, activityLabels.length),
+                            borderColor: isDark ? 'rgb(31, 41, 55)' : 'rgb(255, 255, 255)',
+                            borderWidth: 2,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'bottom',
+                                labels: {
+                                    color: isDark ? '#9CA3AF' : '#4B5563',
+                                    usePointStyle: true,
+                                    padding: 12
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const pct = total > 0 ? ((context.raw / total) * 100).toFixed(1) : 0;
+                                        return context.label + ': ' + context.raw + ' (' + pct + '%)';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
 
             // Chart.js - Transaction Chart
             const ctx = document.getElementById('transactionChart');

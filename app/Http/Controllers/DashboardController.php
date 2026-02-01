@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityLog;
 use App\Models\Sparepart;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -43,6 +44,35 @@ class DashboardController extends Controller
         // Low stock items (stok <= 5)
         $lowStockItems = Sparepart::where('stok', '<=', 5)->orderBy('stok')->limit(5)->get();
 
+        // Activity log stats for interactive diagram (last 7 days)
+        $activityQuery = ActivityLog::where('created_at', '>=', now()->subDays(7));
+        if ($userRole !== 'admin') {
+            $activityQuery->where('user_id', Auth::id());
+        }
+        $activityByAction = $activityQuery->selectRaw('action, count(*) as total')->groupBy('action')->pluck('total', 'action');
+        $activityLabels = [
+            'login' => 'Login',
+            'logout' => 'Logout',
+            'create' => 'Tambah Data',
+            'update' => 'Ubah Data',
+            'delete' => 'Hapus Data',
+            'transaction_masuk' => 'Barang Masuk',
+            'transaction_keluar' => 'Barang Keluar',
+        ];
+        $activityChartData = [];
+        $activityChartLabels = [];
+        foreach ($activityLabels as $key => $label) {
+            if (($activityByAction[$key] ?? 0) > 0) {
+                $activityChartLabels[] = $label;
+                $activityChartData[] = $activityByAction[$key];
+            }
+        }
+        // If no data, show placeholder
+        if (empty($activityChartData)) {
+            $activityChartLabels = ['Belum ada aktivitas'];
+            $activityChartData = [1];
+        }
+
         return view('dashboard', compact(
             'totalSpareparts',
             'totalStok',
@@ -53,7 +83,10 @@ class DashboardController extends Controller
             'todayMasuk',
             'todayKeluar',
             'todayCount',
-            'lowStockItems'
+            'lowStockItems',
+            'activityChartLabels',
+            'activityChartData',
+            'activityByAction'
         ));
     }
 }
